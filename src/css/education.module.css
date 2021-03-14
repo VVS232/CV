@@ -1,0 +1,17 @@
+.qualification,
+.organization {
+  display: block;
+  width: 90%;
+}
+.edFrom,
+.edTo {
+  width: 35%;
+}
+#ongoingForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#ongoing {
+  height: auto;
+}

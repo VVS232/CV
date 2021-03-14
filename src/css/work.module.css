@@ -1,0 +1,17 @@
+.title,
+.employer {
+  display: block;
+  width: 90%;
+}
+.wFrom,
+.wTo {
+  width: 35%;
+}
+#ongoingForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#ongoing {
+  height: auto;
+}

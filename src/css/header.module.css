@@ -3,6 +3,7 @@ header {
   background-color: rgb(102, 102, 218);
   display: flex;
   padding-top: 10px;
+  padding-left: 10px;
 }
 .title {
   color: black;
