@@ -1,0 +1,10 @@
+header {
+  height: 60px;
+  background-color: rgb(102, 102, 218);
+  display: flex;
+  padding-top: 10px;
+}
+.title {
+  color: black;
+  margin: 0;
+}
