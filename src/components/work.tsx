@@ -37,6 +37,7 @@ const Work: React.FC = () => {
                     <input type="checkbox" id={styles.ongoing} />
                 </div>
             </div>
+            <button>Add work</button>
         </section>
     );
 };
