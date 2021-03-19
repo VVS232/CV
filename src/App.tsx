@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import './App.css';
 import Header from './components/header';
 import PersonalInfo from './components/personalInfo';
-import Education from './components/education';
+import Education from './components/ed';
 import Work from './components/work';
 function App(): ReactElement {
     return (

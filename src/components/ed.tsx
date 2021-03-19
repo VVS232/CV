@@ -1,7 +1,7 @@
-import React, { ChangeEvent, ReactElement } from 'react';
-import styles from '../css/work.module.css';
+import React, { ChangeEvent } from 'react';
+import styles from '../css/education.module.css';
 
-class Work extends React.Component<
+class Education extends React.Component<
     unknown,
     { els: { val: string; show: boolean }[] }
 > {
@@ -10,13 +10,13 @@ class Work extends React.Component<
         super(props);
         this.els = [];
         this.els = [
-            { val: 'Title of the ocupation', show: true },
+            { val: 'Title of qualification awarded', show: true },
             {
-                val: 'Employer',
+                val: 'Organization providing education and training',
                 show: true,
             },
-            { val: 'From', show: true },
-            { val: 'To', show: true },
+            { val: 'Starting date', show: true },
+            { val: 'Graduationg date', show: true },
         ];
         this.state = { els: this.els };
     }
@@ -48,11 +48,11 @@ class Work extends React.Component<
         });
     };
 
-    render(): ReactElement {
+    render(): JSX.Element {
         return (
-            <section>
-                <h2>Work Experience</h2>
-                <div className="workInputs">
+            <section className={styles.education}>
+                <h2>Education and trainings</h2>
+                <div className={styles.educationInputs}>
                     <div>
                         {this.state.els[0].show ? (
                             <p
@@ -63,14 +63,14 @@ class Work extends React.Component<
                             </p>
                         ) : (
                             <input
-                                type="text"
-                                required
-                                placeholder="Title of the ocupation"
-                                className={styles.title}
                                 autoFocus
                                 onBlur={() => {
                                     this.showPar(0);
                                 }}
+                                type="text"
+                                required
+                                placeholder="Title of qualification awarded"
+                                className={styles.qualification}
                                 onChange={(e) => {
                                     this.onInputChange(e, 0);
                                 }}
@@ -84,12 +84,12 @@ class Work extends React.Component<
                             </p>
                         ) : (
                             <input
-                                type="text"
-                                required
-                                className={styles.employer}
-                                placeholder="Employer"
                                 autoFocus
                                 onBlur={this.showPar.bind(null, 1)}
+                                type="text"
+                                required
+                                className={styles.organization}
+                                placeholder="Organization providing education and training"
                                 value={this.state.els[1].val}
                                 onChange={(e) => {
                                     this.onInputChange(e, 1);
@@ -104,12 +104,12 @@ class Work extends React.Component<
                             </p>
                         ) : (
                             <input
+                                autoFocus
+                                onBlur={this.showPar.bind(null, 2)}
                                 type="date"
                                 required
                                 placeholder="From"
-                                className={styles.wFrom}
-                                autoFocus
-                                onBlur={this.showPar.bind(null, 2)}
+                                className={styles.edFrom}
                                 value={this.state.els[2].val}
                             />
                         )}
@@ -119,12 +119,12 @@ class Work extends React.Component<
                             </p>
                         ) : (
                             <input
+                                autoFocus
+                                onBlur={this.showPar.bind(null, 3)}
                                 type="date"
                                 required
                                 placeholder="To"
-                                className={styles.wTo}
-                                autoFocus
-                                onBlur={this.showPar.bind(null, 3)}
+                                className={styles.edTo}
                                 value={this.state.els[3].val}
                             />
                         )}
@@ -132,9 +132,10 @@ class Work extends React.Component<
                         <input type="checkbox" id={styles.ongoing} />
                     </div>
                 </div>
-                <button>Add work</button>
+                <button>Add Education</button>
             </section>
         );
     }
 }
-export default Work;
+
+export default Education;
