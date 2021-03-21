@@ -3,9 +3,9 @@ import styles from '../css/work.module.css';
 
 class Work extends React.Component<
     unknown,
-    { els: { val: string; show: boolean }[] }
+    { els: { val: string; show: boolean; ongoing?: boolean }[] }
 > {
-    els: { val: string; show: boolean }[];
+    els: { val: string; show: boolean; ongoing?: boolean }[];
     constructor(props: unknown) {
         super(props);
         this.els = [];
@@ -16,12 +16,12 @@ class Work extends React.Component<
                 show: true,
             },
             { val: 'From', show: true },
-            { val: 'To', show: true },
+            { val: 'To', show: true, ongoing: false },
         ];
         this.state = { els: this.els };
     }
 
-    showInp = (num: number) => {
+    showInp = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = false;
@@ -30,7 +30,7 @@ class Work extends React.Component<
         });
     };
 
-    showPar = (num: number) => {
+    showPar = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = true;
@@ -39,11 +39,19 @@ class Work extends React.Component<
             return newState;
         });
     };
-    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number) => {
+    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].val = (e.target as HTMLInputElement).value;
             console.log(newState.els[num].val);
+            return newState;
+        });
+    };
+
+    onOngoingChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        this.setState((prevState) => {
+            const newState = { ...prevState };
+            newState.els[3].ongoing = (e.target as HTMLInputElement).checked;
             return newState;
         });
     };
@@ -113,11 +121,11 @@ class Work extends React.Component<
                                 value={this.state.els[2].val}
                             />
                         )}
-                        {this.state.els[3].show ? (
+                        {!this.state.els[3].ongoing ? (
                             <p onClick={this.showInp.bind(null, 3)}>
                                 {this.state.els[3].val}
                             </p>
-                        ) : (
+                        ) : this.state.els[3].show ? null : (
                             <input
                                 type="date"
                                 required
@@ -129,10 +137,13 @@ class Work extends React.Component<
                             />
                         )}
                         <label htmlFor={styles.ongoing}>Ongoing</label>{' '}
-                        <input type="checkbox" id={styles.ongoing} />
+                        <input
+                            type="checkbox"
+                            id={styles.ongoing}
+                            onChange={this.onOngoingChange}
+                        />
                     </div>
                 </div>
-                <button>Add work</button>
             </section>
         );
     }

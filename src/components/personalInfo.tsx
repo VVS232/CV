@@ -20,7 +20,7 @@ class PersInfo extends React.Component<
         ];
         this.state = { els: this.els };
     }
-    showInp = (num: number) => {
+    showInp = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = false;
@@ -29,7 +29,7 @@ class PersInfo extends React.Component<
         });
     };
 
-    showPar = (num: number) => {
+    showPar = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = true;
@@ -38,7 +38,7 @@ class PersInfo extends React.Component<
             return newState;
         });
     };
-    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number) => {
+    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].val = (e.target as HTMLInputElement).value;
@@ -131,8 +131,6 @@ class PersInfo extends React.Component<
                                     value={this.state.els[3].val}
                                 />
                             )}
-                            <label htmlFor={styles.ongoing}>Ongoing</label>{' '}
-                            <input type="checkbox" id={styles.ongoing} />
                         </div>
                     </div>
                 </div>

@@ -3,9 +3,9 @@ import styles from '../css/education.module.css';
 
 class Education extends React.Component<
     unknown,
-    { els: { val: string; show: boolean }[] }
+    { els: { val: string; show: boolean; ongoing?: boolean }[] }
 > {
-    els: { val: string; show: boolean }[];
+    els: { val: string; show: boolean; ongoing?: boolean }[];
     constructor(props: unknown) {
         super(props);
         this.els = [];
@@ -16,12 +16,12 @@ class Education extends React.Component<
                 show: true,
             },
             { val: 'Starting date', show: true },
-            { val: 'Graduationg date', show: true },
+            { val: 'Graduationg date', show: true, ongoing: false },
         ];
         this.state = { els: this.els };
     }
 
-    showInp = (num: number) => {
+    showInp = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = false;
@@ -30,20 +30,26 @@ class Education extends React.Component<
         });
     };
 
-    showPar = (num: number) => {
+    showPar = (num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].show = true;
-            console.log(newState.els[num].val);
 
             return newState;
         });
     };
-    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number) => {
+    onInputChange = (e: ChangeEvent<HTMLInputElement>, num: number): void => {
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState.els[num].val = (e.target as HTMLInputElement).value;
-            console.log(newState.els[num].val);
+            return newState;
+        });
+    };
+
+    onOngoingChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        this.setState((prevState) => {
+            const newState = { ...prevState };
+            newState.els[3].ongoing = (e.target as HTMLInputElement).checked;
             return newState;
         });
     };
@@ -104,6 +110,9 @@ class Education extends React.Component<
                             </p>
                         ) : (
                             <input
+                                onChange={(e) => {
+                                    this.onInputChange(e, 2);
+                                }}
                                 autoFocus
                                 onBlur={this.showPar.bind(null, 2)}
                                 type="date"
@@ -113,11 +122,11 @@ class Education extends React.Component<
                                 value={this.state.els[2].val}
                             />
                         )}
-                        {this.state.els[3].show ? (
+                        {!this.state.els[3].ongoing ? (
                             <p onClick={this.showInp.bind(null, 3)}>
                                 {this.state.els[3].val}
                             </p>
-                        ) : (
+                        ) : this.state.els[3].show ? null : (
                             <input
                                 autoFocus
                                 onBlur={this.showPar.bind(null, 3)}
@@ -129,10 +138,13 @@ class Education extends React.Component<
                             />
                         )}
                         <label htmlFor={styles.ongoing}>Ongoing</label>{' '}
-                        <input type="checkbox" id={styles.ongoing} />
+                        <input
+                            type="checkbox"
+                            id={styles.ongoing}
+                            onChange={this.onOngoingChange}
+                        />
                     </div>
                 </div>
-                <button>Add Education</button>
             </section>
         );
     }
