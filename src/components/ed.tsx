@@ -62,6 +62,7 @@ class Education extends React.Component<
                     <div>
                         {this.state.els[0].show ? (
                             <p
+                                className={styles.qualification}
                                 onClick={() => {
                                     this.showInp(0);
                                 }}>
@@ -85,7 +86,9 @@ class Education extends React.Component<
                         )}
 
                         {this.state.els[1].show ? (
-                            <p onClick={this.showInp.bind(null, 1)}>
+                            <p
+                                className={styles.organization}
+                                onClick={this.showInp.bind(null, 1)}>
                                 {this.state.els[1].val}
                             </p>
                         ) : (
@@ -105,7 +108,9 @@ class Education extends React.Component<
                     </div>
                     <div>
                         {this.state.els[2].show ? (
-                            <p onClick={this.showInp.bind(null, 2)}>
+                            <p
+                                className={styles.edFrom}
+                                onClick={this.showInp.bind(null, 2)}>
                                 {this.state.els[2].val}
                             </p>
                         ) : (
@@ -123,20 +128,27 @@ class Education extends React.Component<
                             />
                         )}
                         {!this.state.els[3].ongoing ? (
-                            <p onClick={this.showInp.bind(null, 3)}>
-                                {this.state.els[3].val}
-                            </p>
-                        ) : this.state.els[3].show ? null : (
-                            <input
-                                autoFocus
-                                onBlur={this.showPar.bind(null, 3)}
-                                type="date"
-                                required
-                                placeholder="To"
-                                className={styles.edTo}
-                                value={this.state.els[3].val}
-                            />
-                        )}
+                            this.state.els[3].show ? (
+                                <p
+                                    className={styles.edTo}
+                                    onClick={this.showInp.bind(null, 3)}>
+                                    {this.state.els[3].val}
+                                </p>
+                            ) : (
+                                <input
+                                    onChange={(e) => {
+                                        this.onInputChange(e, 3);
+                                    }}
+                                    autoFocus
+                                    onBlur={this.showPar.bind(null, 3)}
+                                    type="date"
+                                    required
+                                    placeholder="To"
+                                    className={styles.edTo}
+                                    value={this.state.els[3].val}
+                                />
+                            )
+                        ) : null}
                         <label htmlFor={styles.ongoing}>Ongoing</label>{' '}
                         <input
                             type="checkbox"

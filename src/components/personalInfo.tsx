@@ -3,7 +3,7 @@ import styles from '../css/personalInfo.module.css';
 
 class PersInfo extends React.Component<
     unknown,
-    { els: { val: string; show: boolean }[] }
+    { els: { val: string; show: boolean }[]; imgPath: any }
 > {
     els: { val: string; show: boolean }[];
     constructor(props: unknown) {
@@ -18,7 +18,7 @@ class PersInfo extends React.Component<
             { val: 'Email', show: true },
             { val: 'Phone Number', show: true },
         ];
-        this.state = { els: this.els };
+        this.state = { els: this.els, imgPath: null };
     }
     showInp = (num: number): void => {
         this.setState((prevState) => {
@@ -46,16 +46,39 @@ class PersInfo extends React.Component<
             return newState;
         });
     };
-
+    onImgSubmit = (e: any): void => {
+        this.setState((prevState) => {
+            const newState = { ...prevState };
+            newState.imgPath = URL.createObjectURL(e.target.files[0]);
+            console.log(newState.imgPath);
+            return newState;
+        });
+    };
     render(): ReactElement {
         return (
             <section className={styles.persInfo}>
                 <h2>Personal Info</h2>
-                <div className={styles.persInputs}>
-                    <div>
-                        <div>
+                <div className={styles.imgAndInp}>
+                    {this.state.imgPath ? (
+                        <img
+                            src={this.state.imgPath}
+                            alt=""
+                            className={styles.profileImg}
+                        />
+                    ) : (
+                        <input
+                            onChange={this.onImgSubmit}
+                            type="file"
+                            accept=".jpg, .jpeg, .png"
+                            id="profile_pic"
+                        />
+                    )}
+
+                    <div className={styles.fourInputs}>
+                        <div className={styles.twoInps}>
                             {this.state.els[0].show ? (
                                 <p
+                                    className={styles.persInfoInput}
                                     onClick={() => {
                                         this.showInp(0);
                                     }}>
@@ -78,9 +101,32 @@ class PersInfo extends React.Component<
                                     value={this.state.els[0].val}
                                 />
                             )}
-
+                            {this.state.els[2].show ? (
+                                <p
+                                    className={styles.persInfoInput}
+                                    onClick={this.showInp.bind(null, 2)}>
+                                    {this.state.els[2].val}
+                                </p>
+                            ) : (
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    required
+                                    className={styles.persInfoInput}
+                                    autoFocus
+                                    onBlur={this.showPar.bind(null, 2)}
+                                    onChange={(e) => {
+                                        this.onInputChange(e, 2);
+                                    }}
+                                    value={this.state.els[2].val}
+                                />
+                            )}
+                        </div>
+                        <div className={styles.twoInps}>
                             {this.state.els[1].show ? (
-                                <p onClick={this.showInp.bind(null, 1)}>
+                                <p
+                                    className={styles.persInfoInput}
+                                    onClick={this.showInp.bind(null, 1)}>
                                     {this.state.els[1].val}
                                 </p>
                             ) : (
@@ -98,25 +144,10 @@ class PersInfo extends React.Component<
                                     }}
                                 />
                             )}
-                        </div>
-                        <div>
-                            {this.state.els[2].show ? (
-                                <p onClick={this.showInp.bind(null, 2)}>
-                                    {this.state.els[2].val}
-                                </p>
-                            ) : (
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    required
-                                    className={styles.persInfoInput}
-                                    autoFocus
-                                    onBlur={this.showPar.bind(null, 2)}
-                                    value={this.state.els[2].val}
-                                />
-                            )}
                             {this.state.els[3].show ? (
-                                <p onClick={this.showInp.bind(null, 3)}>
+                                <p
+                                    className={styles.persInfoInput}
+                                    onClick={this.showInp.bind(null, 3)}>
                                     {this.state.els[3].val}
                                 </p>
                             ) : (
@@ -129,6 +160,9 @@ class PersInfo extends React.Component<
                                     autoFocus
                                     onBlur={this.showPar.bind(null, 3)}
                                     value={this.state.els[3].val}
+                                    onChange={(e) => {
+                                        this.onInputChange(e, 3);
+                                    }}
                                 />
                             )}
                         </div>

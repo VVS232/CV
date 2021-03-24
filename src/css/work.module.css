@@ -1,17 +1,20 @@
 .title,
-.employer {
-  display: block;
-  width: 90%;
+.employer,
+.wFrom,
+.wTo {
+    display: block;
+    width: 90%;
+    font-size: 25px;
 }
 .wFrom,
 .wTo {
-  width: 35%;
+    width: 35%;
 }
 #ongoingForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #ongoing {
-  height: auto;
+    height: auto;
 }

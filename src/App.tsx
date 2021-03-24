@@ -15,11 +15,22 @@ function App(): ReactElement {
         Educations: [Education],
         Works: [Work],
     });
-    function AddForm(formPart: keyof state) {
+    function AddForm(formPart: keyof state, formEl:typeof Education|typeof Work ) {
         setForms((prevState) => {
             const newState = Object.assign({}, prevState);
-            newState[formPart].push(Education);
-            return newState;
+              newState[formPart]= [...newState[formPart],formEl]
+          return newState
+        });
+    }
+    function deleteForm(formPart:keyof state) {
+        setForms((prevState) => {
+            const newState = Object.assign({}, prevState);
+             newState[formPart] =  newState[formPart].filter((el,i)=>{
+                return i!=newState[formPart].length-1
+
+            })    
+            console.log(prevState)
+            return newState       
         });
     }
 
@@ -33,19 +44,22 @@ function App(): ReactElement {
                 ))}
                 <button
                     onClick={() => {
-                        AddForm('Educations');
+                        AddForm('Educations', Education);
                     }}>
                     Add Education
                 </button>
+                <button onClick={()=>deleteForm("Educations")}>Delete</button>
                 {forms.Works.map((el, index) => (
                     <Work key={index} />
                 ))}
                 <button
                     onClick={() => {
-                        AddForm('Works');
+                        AddForm('Works', Work);
                     }}>
                     Add Work
                 </button>
+                <br/>
+                <button className="print" onClick={window.print}>Print</button>
             </main>
         </div>
     );

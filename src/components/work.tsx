@@ -64,6 +64,7 @@ class Work extends React.Component<
                     <div>
                         {this.state.els[0].show ? (
                             <p
+                                className={styles.title}
                                 onClick={() => {
                                     this.showInp(0);
                                 }}>
@@ -87,7 +88,9 @@ class Work extends React.Component<
                         )}
 
                         {this.state.els[1].show ? (
-                            <p onClick={this.showInp.bind(null, 1)}>
+                            <p
+                                className={styles.employer}
+                                onClick={this.showInp.bind(null, 1)}>
                                 {this.state.els[1].val}
                             </p>
                         ) : (
@@ -107,11 +110,16 @@ class Work extends React.Component<
                     </div>
                     <div>
                         {this.state.els[2].show ? (
-                            <p onClick={this.showInp.bind(null, 2)}>
+                            <p
+                                className={styles.wFrom}
+                                onClick={this.showInp.bind(null, 2)}>
                                 {this.state.els[2].val}
                             </p>
                         ) : (
                             <input
+                                onChange={(e) => {
+                                    this.onInputChange(e, 2);
+                                }}
                                 type="date"
                                 required
                                 placeholder="From"
@@ -122,20 +130,27 @@ class Work extends React.Component<
                             />
                         )}
                         {!this.state.els[3].ongoing ? (
-                            <p onClick={this.showInp.bind(null, 3)}>
-                                {this.state.els[3].val}
-                            </p>
-                        ) : this.state.els[3].show ? null : (
-                            <input
-                                type="date"
-                                required
-                                placeholder="To"
-                                className={styles.wTo}
-                                autoFocus
-                                onBlur={this.showPar.bind(null, 3)}
-                                value={this.state.els[3].val}
-                            />
-                        )}
+                            this.state.els[3].show ? (
+                                <p
+                                    className={styles.wTo}
+                                    onClick={this.showInp.bind(null, 3)}>
+                                    {this.state.els[3].val}
+                                </p>
+                            ) : (
+                                <input
+                                    onChange={(e) => {
+                                        this.onInputChange(e, 3);
+                                    }}
+                                    type="date"
+                                    required
+                                    placeholder="To"
+                                    className={styles.wTo}
+                                    autoFocus
+                                    onBlur={this.showPar.bind(null, 3)}
+                                    value={this.state.els[3].val}
+                                />
+                            )
+                        ) : null}
                         <label htmlFor={styles.ongoing}>Ongoing</label>{' '}
                         <input
                             type="checkbox"

@@ -1,17 +1,23 @@
 .qualification,
-.organization {
-  display: block;
-  width: 90%;
+.organization,
+.edFrom,
+.edTo {
+    display: block;
+    width: 90%;
+    font-size: 25px;
 }
 .edFrom,
 .edTo {
-  width: 35%;
+    width: 35%;
 }
 #ongoingForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #ongoing {
-  height: auto;
+    height: auto;
+}
+label {
+    font-size: 25px;
 }
